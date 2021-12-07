@@ -13,5 +13,11 @@
     <Folder Include="Photos\" />
   </ItemGroup>
 
+	<ItemGroup>
+		<Content Include="Photos">
+			<CopyToOutputDirectory>PreserveNewset</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+
 
 </Project>
