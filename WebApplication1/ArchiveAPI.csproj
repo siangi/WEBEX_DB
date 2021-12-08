@@ -10,14 +10,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Photos\" />
+    <Folder Include="Photos\">
+		<CopyToOutputDirectory>PreserveNewset</CopyToOutputDirectory>
+	</Folder>
   </ItemGroup>
-
-	<ItemGroup>
-		<Content Include="Photos">
-			<CopyToOutputDirectory>PreserveNewset</CopyToOutputDirectory>
-		</Content>
-	</ItemGroup>
-
 
 </Project>
