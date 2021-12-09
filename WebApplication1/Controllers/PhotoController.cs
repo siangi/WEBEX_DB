@@ -49,8 +49,8 @@ namespace ArchiveAPI.Controllers
         {
             MongoClient dbClient = createStandardMongoClient();
 
-            int LastPhotoId = dbClient.GetDatabase("Exhibitions").GetCollection<Photo>("Photos").AsQueryable().Count();
-            photo.PhotoId = LastPhotoId + 1;
+            int count = dbClient.GetDatabase("Exhibitions").GetCollection<Photo>("Photos").AsQueryable().Count();
+            photo.PhotoId = count;
 
             dbClient.GetDatabase("Exhibitions").GetCollection<Photo>("Photos").InsertOne(photo);
 
@@ -62,7 +62,7 @@ namespace ArchiveAPI.Controllers
         {
             MongoClient dbClient = createStandardMongoClient();
             
-            var filter = Builders<Photo>.Filter.Eq("PhotoId", photo.Id);
+            var filter = Builders<Photo>.Filter.Eq("PhotoId", photo.PhotoId);
             var update = Builders<Photo>.Update.Set("Description", photo.Description)
                                                 .Set("Name", photo.Name)
                                                 .Set("Filename", photo.Filename);
