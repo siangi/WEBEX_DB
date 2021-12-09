@@ -91,9 +91,15 @@ namespace ArchiveAPI.Controllers
             MongoClient dbClient = createStandardMongoClient();
             
             var filter = Builders<Photo>.Filter.Eq("PhotoId", photo.PhotoId);
-            var update = Builders<Photo>.Update.Set("Description", photo.Description)
-                                                .Set("Name", photo.Name)
-                                                .Set("Filename", photo.Filename);
+            var update = Builders<Photo>.Update.Set("OrderIndex", photo.OrderIndex)
+                                                .Set("AltText", photo.AltText)
+                                                .Set("TextOffsetX", photo.TextOffsetY)
+                                                .Set("TextOffsetY", photo.TextOffsetY)
+                                                .Set("ColumnWidth", photo.ColumnWidth)
+                                                .Set("RowHeight", photo.RowHeight)
+                                                .Set("Filename", photo.Filename)
+                                                .Set("TextTitle", photo.TextTitle)
+                                                .Set("Description", photo.Description);
 
 
             dbClient.GetDatabase("Exhibitions").GetCollection<Photo>("Photos").UpdateOne(filter, update);

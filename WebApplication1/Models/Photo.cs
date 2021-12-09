@@ -7,11 +7,17 @@ namespace ArchiveAPI.Models
         public const string PHOTO_URL = "http://localhost:49146/Photos/";
         public ObjectId Id { get; set; }
         public int PhotoId { get; set; }
+        public int OrderIndex { get; set; }
+        public string AltText { get; set; }
+        public string TextOffsetX { get; set; }
+        public string TextOffsetY { get; set; }
+        public int ColumnWidth { get; set; }
+        public int RowHeight { get; set; }
         public string Filename { get; set; }
-        public string Name { get; set; }
+        public string TextTitle { get; set; }
         public string Description { get; set; }
-        public int Width { get; set; }
-        public int Height { get; set; }
+
+
 
         public string Link { get { return PHOTO_URL + Filename;  } }
 
