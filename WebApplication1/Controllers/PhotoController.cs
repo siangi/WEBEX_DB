@@ -21,7 +21,7 @@ namespace ArchiveAPI.Controllers
             _env = env;
         }
 
-        public MongoClient createStandardMongoClient()
+        private MongoClient createStandardMongoClient()
         {
             return new MongoClient(_configuration.GetConnectionString("ArchiveConnection"));
         }
