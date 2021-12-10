@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
 using System.IO;
@@ -26,6 +27,10 @@ namespace ArchiveAPI.Controllers
             return new MongoClient(_configuration.GetConnectionString("ArchiveConnection"));
         }
 
+        /// <summary>
+        /// Collects all Photo Entry from the Database
+        /// </summary>
+        /// <returns>A List of Photo Entries</returns>
         [HttpGet]
         public JsonResult Get()
         {
@@ -36,6 +41,11 @@ namespace ArchiveAPI.Controllers
             return new JsonResult(dbList);
         }
 
+        /// <summary>
+        /// calls for a specific Photo Entry 
+        /// </summary>
+        /// <param name="photoId">PhotoID of the entry</param>
+        /// <returns>The Databse entry</returns>
         [HttpGet("{photoId:int}")]
         public JsonResult Get(int photoId)
         {
@@ -48,6 +58,11 @@ namespace ArchiveAPI.Controllers
             return new JsonResult(findResult);
         }
 
+        /// <summary>
+        /// Add a new Photo to the Database. Only Metadata, not the File itself.
+        /// </summary>
+        /// <param name="photo">JSON Object with all the Photo Parameters</param>
+        /// <returns>Status Message</returns>
         [HttpPost]
         public JsonResult Post(Photo photo)
         {
@@ -61,14 +76,19 @@ namespace ArchiveAPI.Controllers
             return new JsonResult("Added Succesfully");
         }
 
+        /// <summary>
+        /// Uploads a Photo File to the Server.
+        /// </summary>
+        /// <param name="file">The photo</param>
+        /// <returns>a Status Message</returns>
         [Route("SaveFile")]
         [HttpPost]
-        public JsonResult SaveFile()
+        public JsonResult SaveFile([FromForm] IFormFile file)
         {
             try
             {
                 var httpRequest = Request.Form;
-                var postedFile = httpRequest.Files[0];
+                var postedFile = file;
                 string filename = postedFile.FileName;
                 var physicalPath = _env.ContentRootPath + "/Photos/" + filename;
 
@@ -84,7 +104,11 @@ namespace ArchiveAPI.Controllers
                 return new JsonResult("there was a problem with saving the sent file");
             }
         }
-
+        /// <summary>
+        /// Updates a photo Entry in the Database. The PhotoId is used as an identifier, so it shall not be changed.
+        /// </summary>
+        /// <param name="photo">JSON Object of the Entry</param>
+        /// <returns>Status Message</returns>
         [HttpPut]
         public JsonResult Put(Photo photo)
         {
@@ -107,6 +131,11 @@ namespace ArchiveAPI.Controllers
             return new JsonResult("Updated Succesfully");
         }
 
+        /// <summary>
+        /// Deletes a Photo entry in the Database. 
+        /// </summary>
+        /// <param name="photoID">photoID of the Entry</param>
+        /// <returns>status message</returns>
         [HttpDelete("{PhotoId:int}")]
         public JsonResult Delete(int photoID)
         {
