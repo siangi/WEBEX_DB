@@ -4,7 +4,7 @@ namespace ArchiveAPI.Models
 {
     public class Photo
     {
-        public const string PHOTO_URL = "http://localhost:49146/Photos/";
+        public const string PHOTO_URL = "https://webex-groupc.azurewebsites.net/Photos/";
         public ObjectId Id { get; set; }
         public int PhotoId { get; set; }
         public int OrderIndex { get; set; }
