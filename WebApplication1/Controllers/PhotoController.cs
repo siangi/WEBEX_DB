@@ -83,18 +83,17 @@ namespace ArchiveAPI.Controllers
         /// <returns>a Status Message</returns>
         [Route("SaveFile")]
         [HttpPost]
-        public JsonResult SaveFile([FromForm] IFormFile file)
+        public JsonResult SaveFile([FromForm] PhotoFile file)
         {
             try
             {
-                var httpRequest = Request.Form;
                 var postedFile = file;
-                string filename = postedFile.FileName;
+                string filename = postedFile.Name;
                 var physicalPath = _env.ContentRootPath + "/Photos/" + filename;
 
                 using (var stream = new FileStream(physicalPath, FileMode.Create))
                 {
-                    postedFile.CopyTo(stream);
+                    postedFile.File.CopyTo(stream);
                 }
 
                 return new JsonResult("File: " + filename + " was uploaded succesfully");
