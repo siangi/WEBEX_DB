@@ -7,7 +7,7 @@ using System;
 
 namespace ArchiveAPI.Controllers
 {
-    [Route("api/File")]
+    [Route("api/[controller]")]
     [ApiController]
     public class FileController: ControllerBase
     {
