@@ -23,4 +23,12 @@
 		</Content>
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Compile Remove="Photos\SwaggerIgnoreAttribute.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="Attributes\SwaggerIgnoreAttribute.cs" />
+	</ItemGroup>
+
 </Project>

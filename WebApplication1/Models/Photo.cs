@@ -1,10 +1,14 @@
 ﻿using MongoDB.Bson;
+using System.Runtime.Serialization;
+using ArchiveAPI.Attributes;
 
 namespace ArchiveAPI.Models
 {
     public class Photo
     {
         public const string PHOTO_URL = "https://webex-groupc.azurewebsites.net/Photos/";
+        
+        [SwaggerIgnoreAttribute]
         public ObjectId Id { get; set; }
         public int PhotoId { get; set; }
         public int OrderIndex { get; set; }

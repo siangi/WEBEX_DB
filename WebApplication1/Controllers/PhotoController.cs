@@ -71,38 +71,12 @@ namespace ArchiveAPI.Controllers
             int count = dbClient.GetDatabase("Exhibitions").GetCollection<Photo>("Photos").AsQueryable().Count();
             photo.PhotoId = count;
 
+
             dbClient.GetDatabase("Exhibitions").GetCollection<Photo>("Photos").InsertOne(photo);
 
             return new JsonResult("Added Succesfully");
         }
 
-        /// <summary>
-        /// Uploads a Photo File to the Server.
-        /// </summary>
-        /// <param name="file">The photo</param>
-        /// <returns>a Status Message</returns>
-        [Route("SaveFile")]
-        [HttpPost]
-        public JsonResult SaveFile([FromForm] PhotoFile file)
-        {
-            try
-            {
-                var postedFile = file;
-                string filename = postedFile.Name;
-                var physicalPath = _env.ContentRootPath + "/Photos/" + filename;
-
-                using (var stream = new FileStream(physicalPath, FileMode.Create))
-                {
-                    postedFile.File.CopyTo(stream);
-                }
-
-                return new JsonResult("File: " + filename + " was uploaded succesfully");
-            }
-            catch
-            {
-                return new JsonResult("there was a problem with saving the sent file");
-            }
-        }
         /// <summary>
         /// Updates a photo Entry in the Database. The PhotoId is used as an identifier, so it shall not be changed.
         /// </summary>
